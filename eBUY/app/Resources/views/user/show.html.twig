@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <td>{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{ user.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Postal Address</th>
+                <td>{{ user.postalAddress }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('user_index') }}">Back to the list</a>
+        </li>
+        {% if app.user != null and (is_granted('ROLE_ADMIN') or app.user.id == product.getUser().getId())  %}
+        <li>
+            <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}
